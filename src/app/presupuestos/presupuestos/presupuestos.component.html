@@ -1,0 +1,49 @@
+<div *ngIf="cargando">
+    <div class="d-flex align-items-center">
+        <strong>Cargando...</strong>
+        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+    </div>
+</div>
+<br>
+<h3>Listado de Presupuestos</h3>
+<a class="btn btn-primary float-md-right" routerLink="/addpres">Añadir nuevo presupuesto</a>
+<br>
+<table class="table table-bordered table-striped tabla" style="margin-top: 40px;">
+    <thead>
+        <tr class="filters">
+            <th>Índice</th>
+            <th>Proveedor</th>
+            <th>Fecha</th>
+            <th>Concepto</th>
+            <th>Base</th>
+            <th>IVA</th>
+            <th>Total</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let presupuesto of presupuestos; let indice=index">
+            <td>{{ indice+1 }}</td>
+            <td>{{ presupuesto.proveedor }}</td>
+            <td>{{ presupuesto.fecha }}</td>
+            <td>{{ presupuesto.concepto }}</td>
+            <td>{{ presupuesto.base }}</td>
+            <td>{{ presupuesto.iva }}</td>
+            <td>{{ presupuesto.total }}</td>
+            <td>
+                <button type="button" class="btn btn-success" routerLink="/editpres/{{ presupuesto.id$ }}">Editar</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" (click)="eliminarPresupuesto(presupuesto.id$)" [disabled]="cargando2">Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<div *ngIf="cargando2">
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+    </div>
+</div>

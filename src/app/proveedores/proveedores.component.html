@@ -1,0 +1,48 @@
+<div *ngIf="cargando">
+    <div class="d-flex align-items-center">
+        <strong>Cargando...</strong>
+        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+    </div>
+</div>
+<br>
+<h1>Listado de Proveedores</h1>
+<a class="btn btn-primary float-md-right" routerLink="/addprovee">Añadir
+    nuevo proveedor</a>
+<br>
+<table class="table table-bordered table-striped tabla" style="margin-top: 40px;">
+    <thead>
+        <tr class="filters">
+            <th>Índice</th>
+            <th>Nombre</th>
+            <th>CIF</th>
+            <th>Telefono</th>
+            <th>Correo Electrónico</th>
+            <th>Contacto</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let proveedor of proveedores; let indice=index">
+            <td>{{ indice+1 }}</td>
+            <td>{{ proveedor.nombre }}</td>
+            <td>{{ proveedor.cif }}</td>
+            <td>{{ proveedor.telefono }}</td>
+            <td><a href="mailto:{{ proveedor.email }}">{{ proveedor.email }}</a></td>
+            <td>{{ proveedor.contacto }}</td>
+            <td>
+                <button type="button" class="btn btn-success" routerLink="/editprovee/{{ proveedor.id$ }}">Editar</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" (click)="eliminarProveedor(proveedor.id$)" [disabled]="cargando2">Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<div *ngIf="cargando2">
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+    </div>
+</div>
